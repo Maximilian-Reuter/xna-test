@@ -156,7 +156,9 @@ namespace TestGame1
 			// fullscreen
 			if (IsKeyDown (Keys.F) || IsKeyDown (Keys.F11)) {
 				graphics.ToggleFullScreen ();
-				graphics.ApplyChanges ();
+                graphics.PreferredBackBufferWidth = 1440;
+                graphics.PreferredBackBufferHeight = 900;
+                graphics.ApplyChanges();
 			}
 
 			// scroll wheel zoom
