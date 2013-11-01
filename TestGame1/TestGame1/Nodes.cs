@@ -22,6 +22,15 @@ namespace TestGame1
 			Z = z;
 		}
 
+		public enum NodeState
+		{
+			NONE,
+			SELECTED
+		}
+		;
+
+		public NodeState State { get; set; }
+
 		public static int Scale { get; set; }
 
 		public static Node operator + (Node a, Node b)
@@ -41,16 +50,17 @@ namespace TestGame1
 
 		public Node this [int i] {
 			get {
-				while (i < 0) {
-					i += list.Count;
-				}
-				return list [i % list.Count];
+				if (i >= 0 && i < list.Count)
+					return list [i];
+				else if (i == list.Count)
+					return list [0];
+				else
+					throw new ArgumentOutOfRangeException ();
 			}
 			set {
-				while (i < 0) {
-					i += list.Count;
+				if (i >= 0 && i < list.Count) {
+					list [i] = value;
 				}
-				list [i % list.Count] = value;
 			}
 		}
 
@@ -66,39 +76,13 @@ namespace TestGame1
 		}
 	}
 
-	public class Line
-	{
-		public Node From { get; private set; }
-
-		public Node To { get; private set; }
-
-		public Line (Node from, Node to)
-		{
-			From = from;
-			To = to;
-		}
-
-		public enum LineState
-		{
-			NONE,
-			SELECTED
-		}
-		;
-	}
-
-	public class LineList
+	public class Lines
 	{
 		private NodeList Nodes;
 
-		public LineList (NodeList nodes)
+		public Lines (NodeList nodes)
 		{
 			Nodes = nodes;
-		}
-
-		public Line this [int i] {
-			get {
-				return new Line (Nodes [i], Nodes [i + 1]);
-			}
 		}
 
 		public int Count {
@@ -108,18 +92,6 @@ namespace TestGame1
 				else
 					return 0;
 			}
-		}
-
-		public Color Color (int i)
-		{
-			return SelectedLine == i ? Microsoft.Xna.Framework.Color.Red : Microsoft.Xna.Framework.Color.White;
-		}
-
-		private int _SelectedLine = -1;
-
-		public int SelectedLine {
-			set { _SelectedLine = (Nodes.Count + value) % Nodes.Count;}
-			get { return _SelectedLine;}
 		}
 	}
 }
