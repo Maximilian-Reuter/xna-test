@@ -8,7 +8,6 @@ namespace TestGame1
 {
 	public class Node
 	{
-		public static int Scale { get; set; }
 
 		public int X { get; private set; }
 
@@ -22,6 +21,17 @@ namespace TestGame1
 			Y = y;
 			Z = z;
 		}
+
+		public enum NodeState
+		{
+			NONE,
+			SELECTED
+		}
+		;
+
+		public NodeState State { get; set; }
+
+		public static int Scale { get; set; }
 
 		public static Node operator + (Node a, Node b)
 		{

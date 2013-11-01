@@ -218,7 +218,11 @@ namespace TestGame1
 				last = p2;
 			}
 			for (int n = 0; n < nodes.Count*4; n++) {
-				vertices [n].Color = n % 4 >= 2 ? Color.White : Color.Gray;
+				if (n % 4 >= 2) {
+					vertices [n].Color = Color.White;
+				}else {
+					vertices [n].Color = Color.Gray;
+				}
 			}
 			graphics.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineList, vertices, 0, nodes.Count * 2); 
 		}
