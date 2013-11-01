@@ -205,7 +205,7 @@ namespace TestGame1
 
 			var vertices = new VertexPositionColor[lines.Count * 4];
 
-			Vector3 last;
+			Vector3 last = new Vector3(0,0,0);
 			for (int n = 0; n < lines.Count; n++) {
 				Vector3 p1 = lines [n].From.Vector () + offset;
 				Vector3 p2 = lines [n].To.Vector () + offset;
