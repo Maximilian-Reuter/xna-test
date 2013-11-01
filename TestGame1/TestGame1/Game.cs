@@ -30,8 +30,6 @@ namespace TestGame1
 			graphics = new GraphicsDeviceManager (this);
 			graphics.PreferredBackBufferWidth = 1280;
 			graphics.PreferredBackBufferHeight = 720;
-			graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
-			graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 
 			graphics.IsFullScreen = false;
 			graphics.ApplyChanges ();
@@ -199,7 +197,7 @@ namespace TestGame1
 
 			var vertices = new VertexPositionColor[nodes.Count * 4];
 
-			Vector3 last;
+			Vector3 last = new Vector3(0,0,0);
 			for (int n = 0; n < nodes.Count; n++) {
 				Vector3 p1 = nodes [n].Vector () + offset;
 				Vector3 p2 = nodes [n + 1].Vector () + offset;
@@ -243,13 +241,20 @@ namespace TestGame1
 			vertices [4].Color = Color.Yellow;
 			vertices [5].Position = new Vector3 (0, 0, +length);
 			vertices [5].Color = Color.Yellow;
-			graphics.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineList, vertices, 0, 3); 
-			SpriteFont font = Content.Load<SpriteFont> ("Font");
-			spriteBatch.Begin ();
-			spriteBatch.DrawString (font, "X: " + (int)MathHelper.ToDegrees (camera.AngleX), new Vector2 (20, 20), Color.Green);
-			spriteBatch.DrawString (font, "Y: " + (int)MathHelper.ToDegrees (camera.AngleY), new Vector2 (20, 50), Color.Red);
-			spriteBatch.DrawString (font, "Z: " + (int)MathHelper.ToDegrees (camera.AngleZ), new Vector2 (20, 80), Color.Yellow);
-			spriteBatch.End ();
+			graphics.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineList, vertices, 0, 3);
+            try
+            {
+                SpriteFont font = Content.Load<SpriteFont>("Font");
+                spriteBatch.Begin();
+                spriteBatch.DrawString(font, "X: " + (int)MathHelper.ToDegrees(camera.AngleX), new Vector2(20, 20), Color.Green);
+                spriteBatch.DrawString(font, "Y: " + (int)MathHelper.ToDegrees(camera.AngleY), new Vector2(20, 50), Color.Red);
+                spriteBatch.DrawString(font, "Z: " + (int)MathHelper.ToDegrees(camera.AngleZ), new Vector2(20, 80), Color.Yellow);
+                spriteBatch.End();
+            }
+            catch (ContentLoadException ex)
+            {
+
+            }
 		}
 
 		private void DrawCircle ()
