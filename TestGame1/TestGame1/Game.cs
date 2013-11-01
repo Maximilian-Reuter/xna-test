@@ -25,6 +25,7 @@ namespace TestGame1
 		Camera camera;
 		KeyboardState previousKeyboardState;
 		int previousScrollValue;
+        SpriteFont font;
 
 		public Game1 ()
 		{
@@ -55,8 +56,7 @@ namespace TestGame1
 			basicEffect.VertexColorEnabled = true;
 			basicEffect.View = Matrix.CreateLookAt (new Vector3 (0, 0, -1000), new Vector3 (0, 0, 1), new Vector3 (0, 1, 0));
 			basicEffect.Projection = Matrix.CreatePerspectiveFieldOfView (MathHelper.PiOver4, GraphicsDevice.Viewport.AspectRatio, 1.0f, 2000.0f);
-			                                           
-			
+
 			camera = new Camera (graphics, basicEffect);
 
 			if (0 == 1) {
@@ -67,9 +67,18 @@ namespace TestGame1
 				);
 			}
 
-
 			base.Initialize ();
-			previousKeyboardState = Keyboard.GetState ();
+            previousKeyboardState = Keyboard.GetState();
+
+            try
+            {
+                font = Content.Load<SpriteFont>("Font");
+            }
+            catch (ContentLoadException ex)
+            {
+                font = null;
+                Console.WriteLine(ex.Message);
+            }
 		}
 
 		/// <summary>
@@ -257,18 +266,13 @@ namespace TestGame1
 			vertices [5].Position = new Vector3 (0, 0, +length);
 			vertices [5].Color = Color.Yellow;
 			graphics.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineList, vertices, 0, 3);
-            try
+            if (font != null)
             {
-                SpriteFont font = Content.Load<SpriteFont>("Font");
                 spriteBatch.Begin();
                 spriteBatch.DrawString(font, "X: " + (int)MathHelper.ToDegrees(camera.AngleX), new Vector2(20, 20), Color.Green);
                 spriteBatch.DrawString(font, "Y: " + (int)MathHelper.ToDegrees(camera.AngleY), new Vector2(20, 50), Color.Red);
                 spriteBatch.DrawString(font, "Z: " + (int)MathHelper.ToDegrees(camera.AngleZ), new Vector2(20, 80), Color.Yellow);
                 spriteBatch.End();
-            }
-            catch (ContentLoadException ex)
-            {
-
             }
 		}
 
