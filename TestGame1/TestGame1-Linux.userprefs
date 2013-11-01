@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="TestGame1-Linux/Camera.cs">
+    <Files>
+      <File FileName="TestGame1-Linux/Game.cs" Line="170" Column="1" />
+      <File FileName="TestGame1-Linux/Nodes.cs" Line="99" Column="1" />
+      <File FileName="TestGame1-Linux/Camera.cs" Line="33" Column="29" />
+      <File FileName="TestGame1-Linux/Content/Arial.spritefont" Line="4" Column="19" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
