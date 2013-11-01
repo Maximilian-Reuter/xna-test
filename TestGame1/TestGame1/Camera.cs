@@ -30,8 +30,8 @@ namespace TestGame1
 		private float nearPlane;
 		private float farPlane;
 		private float angleX = 0f;//MathHelper.Pi / 4;
-		private float angleY = 0f;
-		private float angleZ = -0.1f;//MathHelper.Pi/2;
+		private float angleY = -0.4f;
+		private float angleZ = -0.4f;//MathHelper.Pi/2;
 		private bool rotateX = false;
 		private bool rotateY = false;
 		private bool rotateZ = false;
@@ -82,9 +82,9 @@ namespace TestGame1
 			if (keyboardState.IsKeyDown (Keys.S))
 				angleZ -= wasdAngle;
 			if (keyboardState.IsKeyDown (Keys.A))
-				angleY += wasdAngle;
-			if (keyboardState.IsKeyDown (Keys.D))
 				angleY -= wasdAngle;
+			if (keyboardState.IsKeyDown (Keys.D))
+				angleY += wasdAngle;
 			if (keyboardState.IsKeyDown (Keys.Q))
 				angleX += wasdAngle;
 			if (keyboardState.IsKeyDown (Keys.E))
