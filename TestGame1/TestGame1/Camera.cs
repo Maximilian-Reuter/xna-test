@@ -93,13 +93,13 @@ namespace TestGame1
 			Vector3 targetDiffLR = new Vector3 (0, 0, 10);
 			Vector3 targetDiffUD = new Vector3 (0, 10, 0);
 			if (keyboardState.IsKeyDown (Keys.Left))
-				camTarget -= targetDiffLR;
-			if (keyboardState.IsKeyDown (Keys.Right))
 				camTarget += targetDiffLR;
+			if (keyboardState.IsKeyDown (Keys.Right))
+				camTarget -= targetDiffLR;
 			if (keyboardState.IsKeyDown (Keys.Up))
-				camTarget -= targetDiffUD;
-			if (keyboardState.IsKeyDown (Keys.Down))
 				camTarget += targetDiffUD;
+			if (keyboardState.IsKeyDown (Keys.Down))
+				camTarget -= targetDiffUD;
 
 			if (rotateY)
 				angleY += 0.005f;
