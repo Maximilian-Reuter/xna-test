@@ -21,6 +21,7 @@ namespace TestGame1
 		BasicEffect basicEffect;
 		Color backColor = Color.CornflowerBlue;
 		NodeList nodes;
+		LineList lines;
 		Camera camera;
 		KeyboardState previousKeyboardState;
 		int previousScrollValue;
@@ -40,6 +41,7 @@ namespace TestGame1
 			Window.Title = "Test Game 1";
 
 			nodes = new NodeList ();
+			lines = new LineList (nodes);
 		}
 
 		/// <summary>
@@ -157,6 +159,12 @@ namespace TestGame1
 				camera.zoom (+10);
 			}
 
+			
+			if (IsKeyDown (Keys.Y)) {
+				lines.SelectedLine -= 1;
+			} else if (IsKeyDown (Keys.X)) {
+				lines.SelectedLine += 1;
+			}
 
 
 			// test
@@ -197,12 +205,12 @@ namespace TestGame1
 			Node.Scale = 100;
 			Vector3 offset = new Vector3 (10, 10, 10);
 
-			var vertices = new VertexPositionColor[nodes.Count * 4];
+			var vertices = new VertexPositionColor[lines.Count * 4];
 
 			Vector3 last;
-			for (int n = 0; n < nodes.Count; n++) {
-				Vector3 p1 = nodes [n].Vector () + offset;
-				Vector3 p2 = nodes [n + 1].Vector () + offset;
+			for (int n = 0; n < lines.Count; n++) {
+				Vector3 p1 = lines [n].From.Vector () + offset;
+				Vector3 p2 = lines [n].To.Vector () + offset;
 
 				var diff = p1 - p2;
 				diff.Normalize ();
@@ -214,17 +222,22 @@ namespace TestGame1
 				vertices [4 * n + 2].Position = p1;
 				vertices [4 * n + 3].Position = p2;
 
-				Console.WriteLine (vertices [2 * n]);
+				Console.WriteLine (vertices [4 * n + 2]);
 				last = p2;
 			}
-			for (int n = 0; n < nodes.Count*4; n++) {
+			Console.WriteLine (lines.SelectedLine);
+			for (int n = 0; n < lines.Count*4; n++) {
 				if (n % 4 >= 2) {
 					vertices [n].Color = Color.White;
-				}else {
+				} else {
 					vertices [n].Color = Color.Gray;
 				}
 			}
-			graphics.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineList, vertices, 0, nodes.Count * 2); 
+			for (int n = 0; n < lines.Count; n++) {
+				vertices [4 * n + 2].Color = lines.Color (n);
+				vertices [4 * n + 3].Color = lines.Color (n);
+			}
+			graphics.GraphicsDevice.DrawUserPrimitives (PrimitiveType.LineList, vertices, 0, lines.Count * 2); 
 		}
 
 		private void DrawCoordinates ()
