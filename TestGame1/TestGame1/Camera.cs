@@ -35,6 +35,8 @@ namespace TestGame1
 		private bool rotateX = false;
 		private bool rotateY = false;
 		private bool rotateZ = false;
+        private Vector3 targetDiffLR;
+        private Vector3 targetDiffUD;
 
 		public void zoom (int i)
 		{
@@ -59,6 +61,8 @@ namespace TestGame1
 			camTarget = new Vector3 (0, 0, 1);
 			camUpVector = new Vector3 (0, 1, 0);
 			ViewMatrix = Matrix.CreateLookAt (camPosition, camTarget, camUpVector);
+            targetDiffLR = new Vector3(0, 0, 10);
+            targetDiffUD = new Vector3(0, 10, 0);
  
 			viewAngle = MathHelper.PiOver4;
 			aspectRatio = graphics.GraphicsDevice.Viewport.AspectRatio;
@@ -90,8 +94,7 @@ namespace TestGame1
 			if (keyboardState.IsKeyDown (Keys.E))
 				angleX -= wasdAngle;
 
-			Vector3 targetDiffLR = new Vector3 (0, 0, 10);
-			Vector3 targetDiffUD = new Vector3 (0, 10, 0);
+			
 			if (keyboardState.IsKeyDown (Keys.Left))
 				camTarget += targetDiffLR;
 			if (keyboardState.IsKeyDown (Keys.Right))

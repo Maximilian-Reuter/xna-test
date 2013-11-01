@@ -203,7 +203,11 @@ namespace TestGame1
 				DrawLines ();
 			}
 
+            DateTime begin = DateTime.UtcNow;
+            //Console.WriteLine("Start camera"+)
 			camera.Draw (gameTime);
+            DateTime end = DateTime.UtcNow;
+
 			DrawCoordinates ();
 
 			base.Draw (gameTime);
